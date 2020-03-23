@@ -8,9 +8,10 @@
  */
 
  module.exports = {
+  extends: "eslint:recommended",
   parser: 'babel-eslint',
   parserOptions: {
-      ecmaVersion: 2015,
+      ecmaVersion: 2017,
       sourceType: 'module',
       ecmaFeatures: {
           // @TODO Deprecated https://eslint.org/docs/user-guide/configuring#deprecated
@@ -28,8 +29,6 @@
   // 以当前目录为根目录，不再向上查找 .eslintrc.js
   root: true,
   rules: {
-      //
-      //
       // 可能的错误
       // 这些规则与 JavaScript 代码中可能的语法错误或逻辑错误有关
       //
@@ -142,11 +141,6 @@
       'valid-jsdoc': 'off',
       // typeof 表达式比较的对象必须是 'undefined', 'object', 'boolean', 'number', 'string', 'function' 或 'symbol'
       'valid-typeof': 'error',
-
-
-
-      //
-      //
       // 最佳实践
       // 这些规则通过一些最佳实践帮助你避免问题
       //
@@ -382,11 +376,6 @@
               onlyEquality: true
           }
       ],
-
-
-
-      //
-      //
       // 严格模式
       // 这些规则与严格模式指令有关
       //
@@ -395,11 +384,6 @@
           'error',
           'never'
       ],
-
-
-
-      //
-      //
       // 变量
       // 这些规则与变量申明有关
       //
@@ -452,10 +436,6 @@
           }
       ],
 
-
-
-      //
-      //
       // Node.js 和 CommonJS
       // 这些规则与在 Node.js 中运行的代码或浏览器中使用的 CommonJS 有关
       //
@@ -488,11 +468,6 @@
       // 禁止使用 node 中的同步的方法，比如 fs.readFileSync
       // @off 使用很常见
       'no-sync': 'off',
-
-
-
-      //
-      //
       // 风格问题
       // 这些规则与代码风格有关，所以是非常主观的
       //
@@ -886,11 +861,6 @@
       // @fixable 正则表达式必须有括号包起来
       // @off 没必要限制
       'wrap-regex': 'off',
-
-
-
-      //
-      //
       // ECMAScript 6
       // 这些规则与 ES6（即通常所说的 ES2015）有关
       //
@@ -993,6 +963,7 @@
       'yield-star-spacing': [
           'error',
           'after'
-      ]
+      ],
+      'no-verify': 'off'
   }
 };

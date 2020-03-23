@@ -9,7 +9,7 @@ export default {
     format: 'cjs',
     sourcemap: true,
   },
-  external: ['lodash'],
+  external: ['express', 'next', 'path', 'event-loop-monitor', 'fs', 'http-proxy-middleware'],
   plugins: [
     resolve(),
     babel({

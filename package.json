@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "del dist && rollup -c"
+    "build": "del dist && rollup -c",
+    "lint": "eslint ./"
   },
   "husky": {
     "hooks": {
