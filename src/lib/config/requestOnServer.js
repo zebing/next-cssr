@@ -1,22 +1,22 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
+
 let requestTasksKeyList = [];
 
 export default function (req, res, prefechAPIConfing) {
   const requestTasks = [];
   requestTasksKeyList = Object.keys(prefechAPIConfing);
 
-  requestTasksKeyList.map((requestTask) => {
+  requestTasksKeyList.map((requestTask) =>
     requestTasks.push(new Promise((resolve, reject) => {
-      requestAction(req, res, prefechAPIConfing[requestTask], resolve)
-    }))
-  })
+      requestAction(req, res, prefechAPIConfing[requestTask], resolve);
+    })));
 
   return Promise.all(requestTasks).then((results) =>
     results.reduce((tasksResult, item, key) => {
       tasksResult[requestTasksKeyList[key]] = item;
       return tasksResult;
-    }, {})
-  )
+    },
+    {}));
 }
 
 // 发起请求
@@ -26,41 +26,41 @@ function requestAction(req, res, requestTaskConfig, resolve) {
     .then((res) => {
       const response = {
         code: 10001,
-        msg: "fetch request unknown error",
-      }
+        msg: 'fetch request unknown error',
+      };
 
       // 开发环境，将err内容返回
       if (process.dev) {
         response.err = res;
       }
 
-      const result = res.status === 200 
-        ? res.json() 
+      const result = res.status === 200
+        ? res.json()
         : {
-            code: res.status,
-            msg: "fetch request unknown error",
-            err: res.json(),
-          };
-      return resolve(result)
+          code: res.status,
+          msg: 'fetch request unknown error',
+          err: res.json(),
+        };
+      return resolve(result);
     })
     .catch((err) => {
       const response = {
         code: 10001,
-        msg: "fetch request unknown error",
-      }
+        msg: 'fetch request unknown error',
+      };
 
       // 开发环境，将err内容返回
       if (process.dev) {
-        response.err = err
+        response.err = err;
       }
       return resolve(response);
-    })
+    });
 }
 
 // fetch config
-function fetchConfigResolve (req, res, { type, data = {}, headers,  url }) {
+function fetchConfigResolve(req, res, { type, data = {}, headers, url }) {
   // 处理请求url
-  const host = process.dev ? req.headers.host : "yanxiaohua.cn";
+  const host = process.dev ? req.headers.host : 'yanxiaohua.cn';
   let urlResolve = `http://${host}${url}`;
 
   const config = {
@@ -74,16 +74,14 @@ function fetchConfigResolve (req, res, { type, data = {}, headers,  url }) {
     timeout: 60 * 1000,
   };
 
-  if (config.method === "GET") {
+  if (config.method === 'GET') {
     let params = [];
-    Object.keys(data).map((key) => {
-      params.push(`${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-    })
+    Object.keys(data).map((key) => params.push(`${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`));
     params = params.join('&');
     urlResolve = `${urlResolve}?${params}`;
 
   } else {
-    config.headers["Content-Type"] = 'application/json; charset=utf-8';
+    config.headers['Content-Type'] = 'application/json; charset=utf-8';
     config.body = JSON.stringify(data);
   }
 

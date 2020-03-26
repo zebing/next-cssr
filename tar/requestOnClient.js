@@ -6,13 +6,13 @@
  */
 (function (window, document, prefetchAPIConfig) {
   // prefetchAPI 请求完成触发通知事件名称
-  var NOTYFY_EVENT_NAME = '__NEXT_prefetchAPI_result_event_name';
+  var NOTYFY_EVENT_NAME = '__NEXT_PREFETCHAPI_RESULT_EVENT_NAME';
 
   // prefetchAPI 请求结果数据名称
-  var PREFETCHAPI_RESULTS = '__NEXT_prefetchAPI_results_data';
+  var PREFETCHAPI_RESULTS = '__NEXT_PREFETCHAPI_RESULT_DATA';
 
   // prefetchAPI 请求完成状态
-  var PREFETCHAPI_RESULTS_STATUS = '__NEXT_prefetchAPI_results_status';
+  var PREFETCHAPI_RESULTS_STATUS = '__NEXT_PREFETCHAPI_RESULT_STATUS';
   var requestTasksKeyList = [];
   var requestTasks = [];
   requestTasksKeyList = Object.keys(prefetchAPIConfig);

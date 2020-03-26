@@ -12,6 +12,7 @@ export default function handle(req, res, { app, handle, latencyP99, remainDowngr
     return;
   }
 
+
   // 服务降级
   // 1. 开发者调试降级
   // 2. 当前 event loop 时间过长时降级，通常服务器负载已过高
@@ -29,23 +30,22 @@ export default function handle(req, res, { app, handle, latencyP99, remainDowngr
       return;
     }
   }
-
   handle_start();
 
   // 降级函数
   function downgrade(reason) {
-    const pathFormat = req.path === '/' ? '/index.html' : req.path.replace(/.html$/gi, "") + '.html';
-    const export_url = dir + "/out" + pathFormat;
+    const pathFormat = req.path === '/' ? '/index.html' : req.path.replace(/.html$/gi, '') + '.html';
+    const export_url = dir + '/out' + pathFormat;
 
     // 降级文档路径无效，降级失败
     if (!fs.existsSync(export_url)) {
-      return false
+      return false;
     }
 
     // 如果handle已提交，则不执行
     if (!isHandleRequest) {
-      isHandleRequest = true
-      let html = fs.readFileSync(export_url, { encoding: 'utf8' })
+      isHandleRequest = true;
+      let html = fs.readFileSync(export_url, { encoding: 'utf8' });
       res.header('X-SSR-Downgrade', reason || true);
       app.sendHTML(req, res, html);
       return true;
@@ -57,14 +57,14 @@ export default function handle(req, res, { app, handle, latencyP99, remainDowngr
 
   // 开始提交渲染
   function handle_start() {
-    app.renderToHTML(req, res, req.path, {hash: Math.random()}, {}).then((html) => {
+    app.renderToHTML(req, res, req.path, { hash: Math.random() }, {}).then((html) => {
       // 降级时已提前返回响应
       if (!isHandleRequest) {
-        isHandleRequest = true
+        isHandleRequest = true;
         res.header('X-SSR-Native', `p99: ${latencyP99.toFixed(3)}ms`);
-        app.sendHTML(req, res, html)
+        app.sendHTML(req, res, html);
       }
-    })
+    });
 
     // 超时降级，最多2.5s
     // 为何为2.5s
