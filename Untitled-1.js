@@ -12,10 +12,8 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  parser: 'babel-eslint',
   extends: [
     'airbnb-base',
-    'plugin:react/recommended'
   ],
   globals: {
     Atomics: 'readonly',
@@ -24,10 +22,6 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
-  },
-  ecmaFeatures: {
-    jsx: true,
-    modules: true
   },
   // 以当前目录为根目录，不再向上查找 .eslintrc.js
   root: true,
@@ -277,7 +271,7 @@ module.exports = {
     // 禁止使用八进制的转义符
     'no-octal-escape': 'error',
     // 禁止对函数的参数重新赋值
-    'no-param-reassign': 'off',
+    'no-param-reassign': 'error',
     // 禁止使用 __proto__
     'no-proto': 'error',
     // 禁止重复定义变量
@@ -839,7 +833,7 @@ module.exports = {
     // @fixable 禁止出现没必要的计算键名，比如 let a = { ['0']: 0 };
     'no-useless-computed-key': 'error',
     // 禁止出现没必要的 constructor，比如 constructor(value) { super(value) }
-    'no-useless-constructor': 'off',
+    'no-useless-constructor': 'error',
     // @fixable 禁止解构时出现同样名字的的重命名，比如 let { foo: foo } = bar;
     'no-useless-rename': 'error',
     // @fixable 禁止使用 var
@@ -881,7 +875,6 @@ module.exports = {
     'template-curly-spacing': ['error', 'never'],
     // @fixable yield* 后面必须要有空格
     'yield-star-spacing': ['error', 'after'],
-    'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }],
-    'implicit-arrow-linebreak': 'off',
+    'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }]
   }
 };
