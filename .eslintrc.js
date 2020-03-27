@@ -1,18 +1,8 @@
-/**
- *
- * 包含所有 ESLint 规则
- * 使用 babel-eslint 作为解析器
- *
- * @fixable 表示此配置支持 --fix
- * @off 表示此配置被关闭了，并且后面说明了关闭的原因
- */
-
 module.exports = {
   env: {
     browser: true,
     es6: true,
   },
-  parser: 'babel-eslint',
   extends: [
     'airbnb-base',
     'plugin:react/recommended'
@@ -25,11 +15,6 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  ecmaFeatures: {
-    jsx: true,
-    modules: true
-  },
-  // 以当前目录为根目录，不再向上查找 .eslintrc.js
   root: true,
   rules: {
     // 可能的错误
@@ -50,7 +35,10 @@ module.exports = {
     // 禁止与负零进行比较
     'no-compare-neg-zero': 'error',
     // 禁止在测试表达式中使用赋值语句，除非这个赋值语句被括号包起来了
-    'no-cond-assign': ['error', 'except-parens'],
+    'no-cond-assign': [
+      'error',
+      'except-parens'
+    ],
     // 禁止使用 console
     // @off console 的使用很常见
     'no-console': 'error',
@@ -86,7 +74,10 @@ module.exports = {
     // @fixable 禁止不必要的布尔类型转换，比如 !! 或 Boolean
     'no-extra-boolean-cast': 'error',
     // @fixable 禁止函数表达式中出现多余的括号，比如 let foo = (function () { return 1 })
-    'no-extra-parens': ['error', 'functions'],
+    'no-extra-parens': [
+      'error',
+      'functions'
+    ],
     // @fixable 禁止出现多余的分号
     'no-extra-semi': 'error',
     // 禁止将一个函数声明重新赋值，如：
@@ -94,7 +85,10 @@ module.exports = {
     // foo = bar
     'no-func-assign': 'error',
     // 禁止在 if 代码块内出现函数声明
-    'no-inner-declarations': ['error', 'both'],
+    'no-inner-declarations': [
+      'error',
+      'both'
+    ],
     // 禁止在 RegExp 构造函数中出现非法的正则表达式
     'no-invalid-regexp': 'error',
     // 禁止使用特殊空白符（比如全角空格），除非是出现在字符串、正则表达式或模版字符串中
@@ -154,7 +148,7 @@ module.exports = {
     // @off 太严格了
     'class-methods-use-this': 'off',
     // 禁止函数的循环复杂度超过 20，https://en.wikipedia.org/wiki/Cyclomatic_complexity
-    complexity: [
+    'complexity': [
       'error',
       {
         max: 20
@@ -164,17 +158,24 @@ module.exports = {
     // @off 太严格了
     'consistent-return': 'off',
     // @fixable if 后面必须要有 {，除非是单行 if
-    curly: ['error', 'multi-line', 'consistent'],
+    'curly': [
+      'error',
+      'multi-line',
+      'consistent'
+    ],
     // switch 语句必须有 default
     // @off 太严格了
     'default-case': 'off',
     // @fixable 链式调用的时候，点号必须放在第二行开头处，禁止放在第一行结尾处
-    'dot-location': ['error', 'property'],
+    'dot-location': [
+      'error',
+      'property'
+    ],
     // @fixable 禁止出现 foo['bar']，必须写成 foo.bar
     // @off 当需要写一系列属性的时候，可以更统一
     'dot-notation': 'off',
     // @fixable 必须使用 === 或 !==，禁止使用 == 或 !=，与 null 比较时除外
-    eqeqeq: [
+    'eqeqeq': [
       'error',
       'always',
       {
@@ -200,7 +201,10 @@ module.exports = {
     'no-empty-function': [
       'error',
       {
-        allow: ['functions', 'arrowFunctions']
+        allow: [
+          'functions',
+          'arrowFunctions'
+        ]
       }
     ],
     // 禁止解构中出现空 {} 或 []
@@ -227,12 +231,14 @@ module.exports = {
     'no-implicit-coercion': [
       'error',
       {
-        allow: ['!!']
+        allow: [
+          '!!'
+        ]
       }
     ],
     // 禁止在全局作用域下定义变量或申明函数
     'no-implicit-globals': 'error',
-    // 禁止在 setTimeout 或 setInterval 中传入字符串，如 setTimeout('alert('Hi!')', 100);
+    // 禁止在 setTimeout 或 setInterval 中传入字符串，如 setTimeout('alert("Hi!")', 100);
     'no-implied-eval': 'error',
     // 禁止在类之外的地方使用 this
     // @off this 的使用很灵活，事件回调中可以表示当前元素，函数也可以先用 this，等以后被调用的时候再 call
@@ -245,7 +251,7 @@ module.exports = {
     'no-lone-blocks': 'error',
     // 禁止在循环内的函数中出现循环体条件语句中定义的变量，比如：
     // for (var i = 0; i < 10; i++) {
-    //     (function () { return i })();
+    //   (function () { return i })();
     // }
     'no-loop-func': 'error',
     // 禁止使用 magic numbers
@@ -268,7 +274,7 @@ module.exports = {
     'no-multi-str': 'error',
     // 禁止直接 new 一个类而不赋值
     'no-new': 'error',
-    // 禁止使用 new Function，比如 let x = new Function('a', 'b', 'return a + b');
+    // 禁止使用 new Function，比如 let x = new Function("a", "b", "return a + b");
     'no-new-func': 'error',
     // 禁止使用 new 来生成 String, Number 或 Boolean
     'no-new-wrappers': 'error',
@@ -286,7 +292,10 @@ module.exports = {
     // @off 它用于限制某个具体的 api 不能使用
     'no-restricted-properties': 'off',
     // 禁止在 return 语句里赋值
-    'no-return-assign': ['error', 'always'],
+    'no-return-assign': [
+      'error',
+      'always'
+    ],
     // 禁止在 return 语句里使用 await
     'no-return-await': 'error',
     // 禁止出现 location.href = 'javascript:void(0)';
@@ -332,7 +341,7 @@ module.exports = {
     // Promise 的 reject 中必须传入 Error 对象，而不是字面量
     'prefer-promise-reject-errors': 'error',
     // parseInt 必须传入第二个参数
-    radix: 'error',
+    'radix': 'error',
     // async 函数中必须存在 await 语句
     // @off async function 中没有 await 的写法很常见，比如 koa 的示例中就有这种用法
     'require-await': 'off',
@@ -348,7 +357,7 @@ module.exports = {
       }
     ],
     // @fixable 必须使用 if (foo === 5) 而不是 if (5 === foo)
-    yoda: [
+    'yoda': [
       'error',
       'never',
       {
@@ -359,7 +368,10 @@ module.exports = {
     // 这些规则与严格模式指令有关
     //
     // @fixable 禁止使用 'strict';
-    strict: ['error', 'never'],
+    'strict': [
+      'error',
+      'never'
+    ],
     // 变量
     // 这些规则与变量申明有关
     //
@@ -393,15 +405,7 @@ module.exports = {
     // 禁止对 undefined 重新赋值
     'no-undefined': 'error',
     // 定义过的变量必须使用
-    'no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        args: 'none',
-        caughtErrors: 'none',
-        ignoreRestSiblings: true
-      }
-    ],
+    'no-unused-vars': 'off',
     // 变量必须先定义后使用
     'no-use-before-define': [
       'error',
@@ -451,18 +455,24 @@ module.exports = {
     // @off 配置项无法配制成想要的样子
     'array-bracket-newline': 'off',
     // @fixable 数组的括号内的前后禁止有空格
-    'array-bracket-spacing': ['error', 'never'],
+    'array-bracket-spacing': [
+      'error',
+      'never'
+    ],
     // @fixable 配置数组的元素之间的换行格式
     // @off 允许一行包含多个元素，方便大数量的数组的书写
     'array-element-newline': 'off',
     // @fixable 代码块如果在一行内，那么大括号内的首尾必须有空格，比如 function () { alert('Hello') }
-    'block-spacing': ['error', 'always'],
+    'block-spacing': [
+      'error',
+      'always'
+    ],
     // @fixable if 与 else 的大括号风格必须一致
     // @off else 代码块可能前面需要有一行注释
     'brace-style': 'off',
     // 变量名必须是 camelcase 风格的
     // @off 很多 api 或文件名都不是 camelcase
-    camelcase: 'off',
+    'camelcase': 'off',
     // @fixable 注释的首字母必须大写
     // @off 没必要限制
     'capitalized-comments': 'off',
@@ -473,14 +483,20 @@ module.exports = {
     'comma-spacing': [
       'error',
       {
-        before: false,
-        after: true
+        'before': false,
+        'after': true
       }
     ],
     // @fixable 禁止在行首写逗号
-    'comma-style': ['error', 'last'],
+    'comma-style': [
+      'error',
+      'last'
+    ],
     // @fixable 用作对象的计算属性时，中括号内的首尾禁止有空格
-    'computed-property-spacing': ['error', 'never'],
+    'computed-property-spacing': [
+      'error',
+      'never'
+    ],
     // 限制 this 的别名
     // @off 没必要限制
     'consistent-this': 'off',
@@ -488,7 +504,10 @@ module.exports = {
     // @off 没必要限制
     'eol-last': 'off',
     // @fixable 函数名和执行它的括号之间禁止有空格
-    'func-call-spacing': ['error', 'never'],
+    'func-call-spacing': [
+      'error',
+      'never'
+    ],
     // 函数赋值给变量的时候，函数名必须与变量名一致
     'func-name-matching': [
       'error',
@@ -513,7 +532,7 @@ module.exports = {
     // @off 没必要限制变量名
     'id-match': 'off',
     // @fixable 一个缩进必须用四个空格替代
-    indent: [
+    'indent': [
       'error',
       2,
       {
@@ -522,14 +541,17 @@ module.exports = {
       }
     ],
     // @fixable jsx 中的属性必须用双引号
-    'jsx-quotes': ['error', 'prefer-double'],
+    'jsx-quotes': [
+      'error',
+      'prefer-double'
+    ],
     // @fixable 对象字面量中冒号前面禁止有空格，后面必须有空格
     'key-spacing': [
       'error',
       {
         beforeColon: false,
         afterColon: true,
-        mode: 'strict'
+        mode: 'strict',
       }
     ],
     // @fixable 关键字前后必须有空格
@@ -550,7 +572,10 @@ module.exports = {
     // @off 没必要限制
     'lines-around-comment': 'off',
     // 代码块嵌套的深度禁止超过 5 层
-    'max-depth': ['error', 5],
+    'max-depth': [
+      'error',
+      5
+    ],
     // 限制一行的长度
     // @off 现在编辑器已经很智能了，不需要限制一行的长度
     'max-len': 'off',
@@ -558,9 +583,15 @@ module.exports = {
     // @off 没必要限制
     'max-lines': 'off',
     // 回调函数嵌套禁止超过 3 层，多了请用 async await 替代
-    'max-nested-callbacks': ['error', 3],
+    'max-nested-callbacks': [
+      'error',
+      3
+    ],
     // 函数的参数禁止超过 7 个
-    'max-params': ['error', 7],
+    'max-params': [
+      'error',
+      7
+    ],
     // 限制函数块中的语句数量
     // @off 没必要限制
     'max-statements': 'off',
@@ -617,9 +648,9 @@ module.exports = {
     ],
     // 禁止 if 里面有否定的表达式，比如：
     // if (a !== b) {
-    //     doSomething();
+    //   doSomething();
     // } else {
-    //     doSomethingElse();
+    //   doSomethingElse();
     // }
     // @off 否定的表达式可以把逻辑表达的更清楚
     'no-negated-condition': 'off',
@@ -680,15 +711,21 @@ module.exports = {
     // @off 没必要限制
     'object-property-newline': 'off',
     // 禁止变量申明时用逗号一次申明多个
-    'one-var': ['error', 'never'],
+    'one-var': [
+      'error',
+      'never'
+    ],
     // @fixable 变量申明必须每行一个
-    'one-var-declaration-per-line': ['error', 'always'],
+    'one-var-declaration-per-line': [
+      'error',
+      'always'
+    ],
     // @fixable 必须使用 x = x + y 而不是 x += y
     // @off 没必要限制
     'operator-assignment': 'off',
     // @fixable 需要换行的时候，操作符必须放在行末，比如：
     // let foo = 1 +
-    //     2
+    //   2
     // @off 有时放在第二行开始处更易读
     'operator-linebreak': 'off',
     // @fixable 代码块首尾必须要空行
@@ -701,7 +738,7 @@ module.exports = {
     // @off 没必要限制
     'quote-props': 'off',
     // @fixable 必须使用单引号，禁止使用双引号
-    quotes: [
+    'quotes': [
       'error',
       'single',
       {
@@ -713,7 +750,7 @@ module.exports = {
     // @off 太严格了
     'require-jsdoc': 'off',
     // @fixable 结尾必须有分号
-    semi: [
+    'semi': [
       'error',
       'always',
       {
@@ -729,7 +766,10 @@ module.exports = {
       }
     ],
     // @fixable 分号必须写在行尾，禁止在行首出现
-    'semi-style': ['error', 'last'],
+    'semi-style': [
+      'error',
+      'last'
+    ],
     // 对象字面量的键名必须排好序
     // @off 没必要限制
     'sort-keys': 'off',
@@ -737,7 +777,10 @@ module.exports = {
     // @off 没必要限制
     'sort-vars': 'off',
     // @fixable if, function 等的大括号之前必须要有空格，比如 if (a) {
-    'space-before-blocks': ['error', 'always'],
+    'space-before-blocks': [
+      'error',
+      'always'
+    ],
     // @fixable function 的小括号之前必须要有空格
     'space-before-function-paren': [
       'error',
@@ -748,7 +791,10 @@ module.exports = {
       }
     ],
     // @fixable 小括号内的首尾禁止有空格
-    'space-in-parens': ['error', 'never'],
+    'space-in-parens': [
+      'error',
+      'never'
+    ],
     // @fixable 操作符左右必须有空格，比如 let sum = 1 + 2;
     'space-infix-ops': 'error',
     // @fixable new, typeof 等后面必须有空格，++, -- 等禁止有空格，比如：
@@ -767,7 +813,9 @@ module.exports = {
       'always',
       {
         block: {
-          exceptions: ['*'],
+          exceptions: [
+            '*'
+          ],
           balanced: true
         }
       }
@@ -781,9 +829,15 @@ module.exports = {
       }
     ],
     // @fixable 模版字符串的 tag 之后禁止有空格，比如 tag`Hello World`
-    'template-tag-spacing': ['error', 'never'],
+    'template-tag-spacing': [
+      'error',
+      'never'
+    ],
     // @fixable 文件开头禁止有 BOM
-    'unicode-bom': ['error', 'never'],
+    'unicode-bom': [
+      'error',
+      'never'
+    ],
     // @fixable 正则表达式必须有括号包起来
     // @off 没必要限制
     'wrap-regex': 'off',
@@ -871,17 +925,26 @@ module.exports = {
     // generator 函数内必须有 yield
     'require-yield': 'error',
     // @fixable ... 的后面禁止有空格
-    'rest-spread-spacing': ['error', 'never'],
+    'rest-spread-spacing': [
+      'error',
+      'never'
+    ],
     // @fixable import 必须按规则排序
     // @off 没必要强制要求
     'sort-imports': 'off',
     // 创建 Symbol 时必须传入参数
     'symbol-description': 'error',
     // @fixable ${name} 内的首尾禁止有空格
-    'template-curly-spacing': ['error', 'never'],
+    'template-curly-spacing': [
+      'error',
+      'never'
+    ],
     // @fixable yield* 后面必须要有空格
-    'yield-star-spacing': ['error', 'after'],
-    'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }],
+    'yield-star-spacing': [
+      'error',
+      'after'
+    ],
+    'import/no-extraneous-dependencies': 'off',
     'implicit-arrow-linebreak': 'off',
   }
 };
