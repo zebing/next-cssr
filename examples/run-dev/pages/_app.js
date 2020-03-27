@@ -1,7 +1,5 @@
 import App, { Container } from 'next/app';
 import React from 'react';
-import 'antd/dist/antd.css';
-// @import "../../../node_modules/antd/dist/antd.less";
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
