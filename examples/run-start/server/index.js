@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 const path = require('path');
-const startServer = require('../../../dist/index').startServer;
+const startServer = require('../../../dist/index').default;
 
 const dev = process.env.NODE_ENV !== 'production';
 const dir = path.resolve(__dirname, '../');
@@ -10,5 +9,6 @@ startServer({ dev, dir })
     await app.prepare();
   })
   .catch((err) => {
+    // eslint-disable-next-line no-console
     console.log('server-start-err: ', err);
   });

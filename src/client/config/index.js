@@ -1,20 +1,15 @@
 import React from 'react';
-import { isObject, isFunction } from '../../utils';
 import requestOnServer from './requestOnServer';
+import { isObject, isFunction } from '../../lib/utils';
+import {
+  NOTYFY_EVENT_NAME,
+  PREFETCHAPI_RESULTS,
+  PREFETCHAPI_RESULTS_STATUS,
+} from '../../lib/constants';
 
-// prefetchAPI 请求完成触发通知事件名称
-const NOTYFY_EVENT_NAME = '__NEXT_PREFETCHAPI_RESULT_EVENT_NAME';
-
-// prefetchAPI 请求结果数据名称
-const PREFETCHAPI_RESULTS = '__NEXT_PREFETCHAPI_RESULT_DATA';
-
-// prefetchAPI 请求完成状态
-const PREFETCHAPI_RESULTS_STATUS = '__NEXT_PREFETCHAPI_RESULT_STATUS';
-
-export default function Config(config) {
+export default function config(config) {
   return function (Component) {
     let pageConfig = {};
-    // eslint-disable-next-line no-unused-vars
     let middleware = [];
 
     // 配置参数数为函数
@@ -101,7 +96,6 @@ function withExtendsPageConfig(pageConfig, Component) {
     }
 
     render() {
-      // eslint-disable-next-line no-unused-vars
       const TargetComponent = Component;
       const { prefetchAPIResults } = this.state || {};
       return this.prefetchRequestresult
