@@ -1,21 +1,23 @@
 import React from 'react';
-import config from '../../../dist';
+import { config } from '../../../dist/lib';
+import '@babel/polyfill';
 
 // http://m.toutiao.com/list/?tag=__all__&format=json_raw&as=A115EEA70D57259
-// @Config({
+
+// @config({
 //   prefetchAPI: {
-//     '/toutiao/list': {
+//     getList: {
 //       type: 'get',
-//       url: 'list',
+//       url: '/gapi/snowflake/api/json/public/area/province/list',
 //       data: {
-//         tag: '__all__',
-//         format: 'format',
+//         countryId: 1,
+//         format: 'json_raw',
 //         as: 'A115EEA70D57259',
 //       }
 //     }
 //   }
 // })
-export default class Index extends React.Component {
+class Index extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -28,3 +30,4 @@ export default class Index extends React.Component {
     );
   }
 }
+export default Index;

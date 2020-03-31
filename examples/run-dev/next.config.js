@@ -8,11 +8,14 @@ module.exports = {
     port: 3002,
   },
   devServerProxy: {
-    '/toutiao': {
-      target: 'https://m.toutiao.com/',
+    '/gapi': {
+      target: 'https://test-vendor.akulaku.com',
       changeOrigin: true,
       cookieDomainRewrite: 'localhost',
       secure: false,
+      // pathRewrite: {
+      //   "^/toutiao": "",
+      // },
     },
   },
   webpack: (webpackConfig, { dev, isServer, buildId, defaultLoaders }) => {
@@ -26,11 +29,8 @@ module.exports = {
     // 编译时常量
     webpackConfig.plugins.push(
       new webpack.DefinePlugin({
-        'process.dev': JSON.stringify(!!dev),
-        'process.browser': JSON.stringify(!isServer),
-        'process.server': JSON.stringify(!!isServer),
-        'process.env.BUILD_ENV': JSON.stringify(process.env.BUILD_ENV || 'local'),
-        'process.env.BUILD_MODE': JSON.stringify(process.env.BUILD_MODE || 'export'),
+        // 'process.env.BUILD_ENV': JSON.stringify(process.env.BUILD_ENV || 'local'),
+        // 'process.env.BUILD_MODE': JSON.stringify(process.env.BUILD_MODE || 'export'),
       })
     );
     return webpackConfig;
