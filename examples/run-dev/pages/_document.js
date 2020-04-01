@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import React from 'react';
-import { requestOnDowngrade } from '../../../dist/lib';
+import { requestOnDowngrade, useRem } from '../../../dist/lib';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -17,6 +17,7 @@ export default class MyDocument extends Document {
           <title>My page</title>
           {this.props.styleTags}
           <script dangerouslySetInnerHTML={{ __html: requestOnDowngrade(prefetchAPIConfig) }}></script>
+          <script dangerouslySetInnerHTML={{ __html: useRem() }}></script>
         </Head>
         <body>
           <Main />
