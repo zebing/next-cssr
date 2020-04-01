@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import requestOnServer from './requestOnServer';
 import { isObject, isFunction } from '../../lib/utils';
 import {
@@ -52,13 +53,19 @@ function withExtendsPageConfig(pageConfig, Component) {
   }
 
   return class wrap extends React.PureComponent {
+    static propTypes = {
+      ssr: PropTypes.bool, // 是否为ssr渲染
+    };
+
     static async getInitialProps(ctx) {
-      let pageInitialProps = {};
+      // next export 模式 ctx.res.locals 为undefined
+      const ssr = ctx.res.locals && ctx.res.locals.ssr && process.env.NODE_ENV !== 'development' ? true : false;
+      let pageInitialProps = { ssr };
       ctx.prefetchAPIConfig = null;
 
       // 区分不同运行模式，处理页面获取到的 props
       // 服务器渲染，非开发环境
-      if (process.env.BUILD_MODE === 'ssr') {
+      if (ssr) {
 
         // 1. ssr 首页，server 已确认所有请求状态，全部注入至 App 并传递至 page。无需处理
         const result = await requestOnServer(ctx.req, ctx.res, pageConfig.prefetchAPI);
@@ -73,15 +80,11 @@ function withExtendsPageConfig(pageConfig, Component) {
 
     constructor(props) {
       super(props);
-      this.prefetchRequestresult = true;
+      // 降级时用以控制在prefectAPI请求完成之前渲染loading页面
+      this.prefetchRequestresult = props.ssr ? true : false;
       this.state = {
         prefetchAPIResults: {},
       };
-
-      // 非 ssr 模式
-      if (process.env.BUILD_MODE !== 'ssr') {
-        this.prefetchRequestresult = false;
-      }
     }
 
     componentDidMount() {

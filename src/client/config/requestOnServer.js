@@ -30,7 +30,7 @@ function requestAction(req, res, requestTaskConfig, resolve) {
       };
 
       // 开发环境，将err内容返回
-      if (process.dev) {
+      if (process.env.NODE_ENV === 'development') {
         response.err = res;
       }
 
@@ -50,7 +50,7 @@ function requestAction(req, res, requestTaskConfig, resolve) {
       };
 
       // 开发环境，将err内容返回
-      if (process.dev) {
+      if (process.env.NODE_ENV === 'development') {
         response.err = err;
       }
       return resolve(response);
@@ -60,8 +60,9 @@ function requestAction(req, res, requestTaskConfig, resolve) {
 // fetch config
 function fetchConfigResolve(req, res, { type, data = {}, headers, url }) {
   // 处理请求url
-  const host = process.dev ? req.headers.host : 'yanxiaohua.cn';
-  let urlResolve = `http://${host}${url}`;
+  // const host = process.env.NODE_ENV === 'development' ? req.headers.host : 'test-vendor.akulaku.com';
+  const host = 'test-vendor.akulaku.com';
+  let urlResolve = `https://${host}${url}`;
 
   const config = {
     method: type ? type.toUpperCase() : 'GET',

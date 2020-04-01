@@ -57,6 +57,7 @@ export default function handle(req, res, { app, handle, latencyP99, remainDowngr
 
   // 开始提交渲染
   function handle_start() {
+    res.locals.ssr = true;
     app.renderToHTML(req, res, req.path, { hash: Math.random() }, {}).then((html) => {
       // 降级时已提前返回响应
       if (!isHandleRequest) {

@@ -14,8 +14,16 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    allowImportExportEverywhere: false,
+    ecmaFeatures: {
+      globalReturn: false,
+    },
+    // babelOptions: {
+    //   configFile: 'path/to/config.js',
+    // },
   },
-  root: true,
+  parser: 'babel-eslint',
+  // root: true,
   rules: {
     // 可能的错误
     // 这些规则与 JavaScript 代码中可能的语法错误或逻辑错误有关
