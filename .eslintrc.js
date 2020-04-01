@@ -4,27 +4,30 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'airbnb-base',
+    'eslint:recommended',
     'plugin:react/recommended'
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    require: true,
+    process: true,
+    __dirname: true,
+    module: true,
   },
   parserOptions: {
-    ecmaVersion: 2018,
     sourceType: 'module',
     allowImportExportEverywhere: false,
-    ecmaFeatures: {
-      globalReturn: false,
-    },
-    // babelOptions: {
-    //   configFile: 'path/to/config.js',
-    // },
+    codeFrame: true
   },
+  plugins: [
+    'react'
+  ],
   parser: 'babel-eslint',
-  // root: true,
+  root: true,
   rules: {
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
     // 可能的错误
     // 这些规则与 JavaScript 代码中可能的语法错误或逻辑错误有关
     //

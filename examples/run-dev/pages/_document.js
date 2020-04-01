@@ -1,7 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import React from 'react';
 import { requestOnDowngrade } from '../../../dist/lib';
-// eslint-disable-next-line import/no-unresolved
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
