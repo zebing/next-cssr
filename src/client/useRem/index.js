@@ -1,5 +1,5 @@
 
-export default function useRem(minWidthPx = 320, maxWidthPx = 540, designLogicPx = 360) {
+export default function useRem(minWidthPx = 0, maxWidthPx = 540, designLogicPx = 360) {
   return `(${calcRem.toString()})(document, window, ${designLogicPx}, ${minWidthPx}, ${maxWidthPx})`;
 }
 
