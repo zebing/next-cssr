@@ -4,7 +4,7 @@ import {
   PREFETCHAPI_RESULTS_STATUS,
 } from '../../lib/constants';
 
-export default function compeletedPrefetchAPILoad(callback) {
+export default function prefectNotify(callback) {
   function listener() {
     const isCompelete = window[PREFETCHAPI_RESULTS_STATUS];
     if (isCompelete) {

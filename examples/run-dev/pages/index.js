@@ -18,6 +18,10 @@ import '@babel/polyfill';
   }
 })
 class Index extends React.Component {
+  static async getInitialProps(ctx) {
+
+    return { testgetInitialProps: true };
+  }
   constructor(props) {
     super(props);
   }

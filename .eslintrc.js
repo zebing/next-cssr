@@ -152,7 +152,7 @@ module.exports = {
       }
     ],
     // 数组的方法除了 forEach 之外，回调函数必须有返回值
-    'array-callback-return': 'error',
+    'array-callback-return': 'off',
     // 将 var 定义的变量视为块作用域，禁止在块外使用
     'block-scoped-var': 'error',
     // 在类的非静态方法中，必须存在对 this 的引用

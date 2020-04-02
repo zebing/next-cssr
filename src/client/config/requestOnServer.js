@@ -11,6 +11,7 @@ export default function (req, res, prefechAPIConfing) {
       requestAction(req, res, prefechAPIConfing[requestTask], resolve);
     })));
 
+  // 如果prefechAPIConfing 为空对象{}，则返回结果为{}
   return Promise.all(requestTasks).then((results) =>
     results.reduce((tasksResult, item, key) => {
       tasksResult[requestTasksKeyList[key]] = item;
