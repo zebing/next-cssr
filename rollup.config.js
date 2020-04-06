@@ -21,6 +21,8 @@ if (buildENV !== 'dev') {
   plugins.push(uglify());
 }
 
+const external = ['express', 'next', 'path', 'event-loop-monitor', 'fs', 'http-proxy-middleware', 'react', 'node-fetch'];
+
 module.exports = [
   {
     input: 'src/index.js',
@@ -30,7 +32,7 @@ module.exports = [
       exports: 'named',
       sourcemap: true,
     },
-    external: ['express', 'next', 'path', 'event-loop-monitor', 'fs', 'http-proxy-middleware', 'react', 'node-fetch'],
+    external: external,
     plugins,
   },
   {
@@ -41,7 +43,7 @@ module.exports = [
       exports: 'named',
       sourcemap: true,
     },
-    external: ['express', 'next', 'path', 'event-loop-monitor', 'fs', 'http-proxy-middleware', 'react', 'node-fetch'],
+    external: external,
     plugins,
   },
 ];

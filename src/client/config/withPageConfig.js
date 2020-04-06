@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import requestOnServer from './requestOnServer';
 import { isObject } from '../../lib/utils';
 import prefectNotify from './prefectNotify';
-import { defaultLoading } from './loading';
+import { getLoading } from './loading';
 
 export default function withPageConfig(pageConfig = {}, Component) {
 
+  const dir = process.cwd();
+
   // prefetchAPI 处理，容错
   const prefetchAPI = isObject(pageConfig.prefetchAPI) ? pageConfig.prefetchAPI : {};
+  const loading = getLoading(pageConfig);
+
 
   return class wrap extends React.PureComponent {
     static propTypes = {
@@ -60,10 +64,11 @@ export default function withPageConfig(pageConfig = {}, Component) {
 
     render() {
       const TargetComponent = Component;
-      const { prefetchAPIResults } = this.state || {};
+      const { prefetchAPIResults } = this.state;
+
       return this.prefetchRequestresult
         ? <TargetComponent {...this.props} {...prefetchAPIResults} />
-        : <div style={{ width: '100%', textAlign: 'center', lineHeight: '100vh' }} dangerouslySetInnerHTML={{ __html: defaultLoading }}></div>;
+        : loading;
     }
   };
 }

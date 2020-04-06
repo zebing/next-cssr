@@ -6,3 +6,6 @@ export const PREFETCHAPI_RESULTS = '__NEXT_PREFETCHAPI_RESULT_DATA';
 
 // prefetchAPI 请求完成状态
 export const PREFETCHAPI_RESULTS_STATUS = '__NEXT_PREFETCHAPI_RESULT_STATUS';
+
+// next 配置文件
+export const CONFIG_FILE = 'next.config.js';
