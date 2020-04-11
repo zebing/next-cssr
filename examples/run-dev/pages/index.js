@@ -8,20 +8,15 @@ import '@babel/polyfill';
   prefetchAPI: {
     getList: {
       type: 'get',
-      url: '/gapi/snowflake/api/json/public/area/province/list',
-      data: {
-        countryId: 1,
-        format: 'json_raw',
-        as: 'A115EEA70D57259',
-      }
+      url: '/api/public/index',
     }
   }
 })
 class Index extends React.Component {
-  static async getInitialProps(ctx) {
+  // static async getInitialProps(ctx) {
 
-    return { testgetInitialProps: true };
-  }
+  //   return { testgetInitialProps: true };
+  // }
   constructor(props) {
     super(props);
   }
