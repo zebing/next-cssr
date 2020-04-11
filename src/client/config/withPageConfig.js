@@ -7,8 +7,6 @@ import { getLoading } from './loading';
 
 export default function withPageConfig(pageConfig = {}, Component) {
 
-  const dir = process.cwd();
-
   // prefetchAPI 处理，容错
   const prefetchAPI = isObject(pageConfig.prefetchAPI) ? pageConfig.prefetchAPI : {};
   const loading = getLoading(pageConfig);

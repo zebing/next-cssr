@@ -15,9 +15,12 @@ function startRequest(window, document, prefetchAPIConfig) {
 
   // prefetchAPI 请求完成状态
   const PREFETCHAPI_RESULTS_STATUS = '__NEXT_PREFETCHAPI_RESULT_STATUS';
-  let requestTasksKeyList = [];
+
+  // prefechAPI任务列表
   let requestTasks = [];
-  requestTasksKeyList = Object.keys(prefetchAPIConfig);
+
+  // prefechAPI任务key列表
+  const requestTasksKeyList = Object.keys(prefetchAPIConfig);
 
   requestTasksKeyList.map(function (requestTask) {
     return requestTasks.push(new Promise(function (resolve, reject) {
@@ -30,9 +33,9 @@ function startRequest(window, document, prefetchAPIConfig) {
       tasksResult[requestTasksKeyList[key]] = item;
       return tasksResult;
     }, {});
-    window[PREFETCHAPI_RESULTS_STATUS] = true;
-    window[PREFETCHAPI_RESULTS] = result;
-    notify();
+    window[PREFETCHAPI_RESULTS_STATUS] = true; // 任务列表完成标记状态
+    window[PREFETCHAPI_RESULTS] = result; // 任务列表结果
+    notify(); // 触发完成监听事件
   });
 
   // 发起请求
