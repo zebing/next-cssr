@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import React from 'react';
-import { requestOnDowngrade, useRem } from '../../../dist/lib';
+import { requestOnDowngrade, useRem } from '../../../lib';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { config } from '../../../dist/lib';
+import { config } from '../../../lib';
 import '@babel/polyfill';
 
 // http://m.toutiao.com/list/?tag=__all__&format=json_raw&as=A115EEA70D57259

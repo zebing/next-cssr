@@ -38,7 +38,7 @@ module.exports = [
   {
     input: 'src/index.lib.js',
     output: {
-      file: 'dist/lib.js',
+      file: 'lib/index.js',
       format: 'cjs',
       exports: 'named',
       sourcemap: true,
