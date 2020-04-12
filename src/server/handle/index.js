@@ -7,9 +7,10 @@
 import startHande from './start-handle';
 import downgrade from './dowmgrade';
 
-export default function handleRequest(req, res, { app, handle, latencyP99, remainDowngradeTimes }) {
+export default function handleRequest(req, res, { app, handle, overload, cpuNumber }) {
   // 开发环境
   const dev = app.renderOpts.dev;
+  const isTooHight = overload[0] > cpuNumber;
 
   // 本地开发一律handle返回
   if (dev || /^\/_next/.test(req.path)) {
@@ -32,11 +33,11 @@ export default function handleRequest(req, res, { app, handle, latencyP99, remai
   }
 
   // 服务器过载降级
-  if (remainDowngradeTimes > 0) {
-    if (downgrade({ app, req, res, reason: `server load is too high. p99: ${latencyP99.toFixed(3)}ms` }) !== false) {
+  if (isTooHight) {
+    if (downgrade({ app, req, res, reason: `server load is too high. over load ${overload.toString()}` }) !== false) {
       return;
     }
   }
 
-  startHande({ app, req, res, latencyP99 });
+  startHande({ app, req, res, overload });
 }

@@ -21,7 +21,7 @@ if (buildENV !== 'dev') {
   plugins.push(uglify());
 }
 
-const external = ['express', 'next', 'path', 'event-loop-monitor', 'fs', 'http-proxy-middleware', 'react', 'node-fetch'];
+const external = ['express', 'next', 'path', 'event-loop-monitor', 'fs', 'http-proxy-middleware', 'react', 'node-fetch', 'os'];
 
 module.exports = [
   {
