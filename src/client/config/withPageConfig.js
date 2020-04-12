@@ -55,7 +55,7 @@ export default function withPageConfig(pageConfig = {}, Component) {
 
     componentDidMount() {
       prefectNotify((result) => {
-        this.prefetchRequestresult = true;
+        // this.prefetchRequestresult = true;
         this.setState({ prefetchAPIResults: result });
       });
     }
