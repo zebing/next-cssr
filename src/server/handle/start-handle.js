@@ -1,8 +1,11 @@
+import os from 'os';
 import downgrade from './dowmgrade';
 
 // 开始提交渲染
-export default function startHandle({ app, req, res, overload }) {
+export default function startHandle({ app, req, res }) {
+  const overload = os.loadavg();
   res.locals.ssr = true;
+
   app.renderToHTML(req, res, req.path, { hash: Math.random() }, {}).then((html) => {
     // 降级时已提前返回响应
     if (!res.locals.isHandle) {

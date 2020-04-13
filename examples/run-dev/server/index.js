@@ -4,8 +4,11 @@ const startServer = require('../../../dist/index').default;
 
 const dev = process.env.NODE_ENV !== 'production';
 const dir = path.resolve(__dirname, '../');
+function downgradeStrategy() {
+  return true;
+}
 
-startServer({ dev, dir })
+startServer({ dev, dir, downgradeStrategy })
   .then(async (app) => {
     await app.prepare();
   })

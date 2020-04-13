@@ -4,13 +4,16 @@
 // 3. 当前 event loop 时间过长时降级，通常服务器负载已过高
 // 4. 页面渲染时间过长时降级，通常是后端接口引起的长时间 pending
 
+import os from 'os';
 import startHande from './start-handle';
 import downgrade from './dowmgrade';
+import defaultDowngradeStrategy from './downgrade-strategy';
 
-export default function handleRequest(req, res, { app, handle, overload, cpuNumber }) {
+export default function handleRequest(req, res, { app, handle, downgradeStrategy = defaultDowngradeStrategy }) {
   // 开发环境
   const dev = app.renderOpts.dev;
-  const isTooHight = overload[0] > cpuNumber;
+  const overload = os.loadavg();
+  const isTooHight = downgradeStrategy();
 
   // 本地开发一律handle返回
   if (dev || /^\/_next/.test(req.path)) {
@@ -39,5 +42,5 @@ export default function handleRequest(req, res, { app, handle, overload, cpuNumb
     }
   }
 
-  startHande({ app, req, res, overload });
+  startHande({ app, req, res });
 }

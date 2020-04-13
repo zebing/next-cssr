@@ -1,14 +1,13 @@
 import express from 'express';
 import next from 'next';
 import path from 'path';
-import os from 'os';
 import handleRequest from './handle';
 import devProxy from './dev-proxy';
 
-export default function startServer(opts) {
+export default function startServer(options) {
   const server = express();
-  const dev = opts.dev;
-  const app = next(opts);
+  const dev = options.dev;
+  const app = next(options);
   const handle = app.getRequestHandler();
 
   // 开发环境下
@@ -16,13 +15,11 @@ export default function startServer(opts) {
     devProxy(server, app);
   } else {
     // export 静态文件托管，可放在专属 nginx 服务器
-    server.use('/_next/static', express.static(path.join(opts.dir, '/out/_next/static')));
+    server.use('/_next/static', express.static(path.join(options.dir, '/out/_next/static')));
   }
 
   server.all('/*', (req, res) => {
-    const overload = os.loadavg();
-    const cpuNumber = os.cpus().length;
-    return handleRequest(req, res, { app, handle, overload, cpuNumber });
+    return handleRequest(req, res, { app, handle, downgradeStrategy: options.downgradeStrategy });
   });
 
   // 其余所有路由
