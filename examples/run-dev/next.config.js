@@ -1,10 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'export', // process.env.NODE_ENV !== 'production' ? 'export' : 'ssr',
-  server: {
-    port: 3002,
-  },
+  mode: process.env.NODE_ENV !== 'production' ? 'export' : 'ssr',
   devServerProxy: {
     '/api': {
       target: 'http://example.cn',
