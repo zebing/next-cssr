@@ -30,7 +30,7 @@ export default function startServer(options) {
 
   return new Promise((resolve, reject) => {
     // 如未配置端口，则默认为3000
-    const port = (app.nextConfig.server && app.nextConfig.server.port) || 3000;
+    const port = options.port || 3000;
     server.listen(port, err => {
       if (err) {
         reject(err);
