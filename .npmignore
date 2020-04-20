@@ -4,3 +4,4 @@ rollup.config.js
 .babelrc
 .eslintignore 
 .eslintrc.js
+README.md
