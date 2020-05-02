@@ -18,7 +18,7 @@ export default function withPageConfig(pageConfig = {}, Component) {
 
     static async getInitialProps(ctx) {
       // next export 模式 ctx.res.locals 为undefined
-      const ssr = ctx.res.locals && ctx.res.locals.ssr && process.env.NODE_ENV !== 'development' ? true : false;
+      const ssr = ctx.res && ctx.res.locals && ctx.res.locals.ssr && process.env.NODE_ENV !== 'development' ? true : false;
       let prefetchAPIResult = {};
       let initialPropsResult = {};
       ctx.prefetchAPIConfig = null;

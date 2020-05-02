@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 import { config } from '../../../lib';
 import '@babel/polyfill';
 
@@ -20,7 +21,7 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>hello</div>
+      <div>hello<button onClick={() => Router.push({ pathname: '/test', query: { test: 1 }})}>跳转</button></div>
     );
   }
 }
