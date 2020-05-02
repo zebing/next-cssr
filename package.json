@@ -9,6 +9,10 @@
     "build": "del dist && del lib && rollup -c",
     "start": "cross-env BUILD_ENV=dev rollup -c -w"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zebing/next-cssr.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
