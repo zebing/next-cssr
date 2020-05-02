@@ -1,6 +1,7 @@
 import express from 'express';
 import next from 'next';
 import path from 'path';
+import cookieParser from 'cookie-parser';
 import handleRequest from './handle';
 import devProxy from './dev-proxy';
 
@@ -9,6 +10,8 @@ export default function startServer(options) {
   const dev = options.dev;
   const app = next(options);
   const handle = app.getRequestHandler();
+
+  server.use(cookieParser());
 
   // 开发环境下
   if (dev) {

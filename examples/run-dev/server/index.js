@@ -5,7 +5,7 @@ const startServer = require('../../../dist/index').default;
 const dev = process.env.NODE_ENV !== 'production';
 const dir = path.resolve(__dirname, '../');
 
-startServer({ dev, dir, port: 3002 })
+startServer({ dev, dir, port: 3001 })
   .then(async (app) => {
     await app.prepare();
   })

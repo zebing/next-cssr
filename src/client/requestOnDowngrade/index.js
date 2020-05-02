@@ -44,7 +44,7 @@ function startRequest(window, document, prefetchAPIConfig) {
     const method = requestTaskConfig.type ? requestTaskConfig.type.toUpperCase() : 'GET';
     let url = window.location.origin + requestTaskConfig.url;
     const headers = [];
-    let postData = null;
+    let requestData = resolveData(requestTaskConfig.data);
 
     // header
     Object.keys(requestTaskConfig.headers || {}).map((key) => headers.push([[key], requestTaskConfig.headers[key]]));
@@ -54,13 +54,15 @@ function startRequest(window, document, prefetchAPIConfig) {
       headers.push(['Content-Type', 'application/x-www-form-urlencoded; charset=utf-8']);
 
       // body
-      Object.keys(requestTaskConfig.data || {}).map((key) => params.push(encodeURIComponent(key) + '=' + encodeURIComponent(requestTaskConfig.data[key])));
+      Object.keys(requestData).map((key) => params.push(encodeURIComponent(key) + '=' + encodeURIComponent(requestData[key])));
 
       params = params.join('&');
-      url = url + '?' + params;
+      if (params) {
+        url = url + '?' + params;
+      }
     } else {
       headers.push(['Content-Type', 'application/json; charset=utf-8']);
-      postData = JSON.stringify(requestTaskConfig.data || {});
+      requestData = JSON.stringify(requestData);
     }
     xhr.open(method, url, true);
     headers.map((item) => xhr.setRequestHeader(item[0], item[1]));
@@ -76,9 +78,10 @@ function startRequest(window, document, prefetchAPIConfig) {
         }
       }
     };
-    xhr.send(postData);
+    xhr.send(requestData);
   }
 
+  // frefetchAPI请求完成触发
   function notify() {
     let event;
     if (typeof window.Event === 'function') {
@@ -88,6 +91,53 @@ function startRequest(window, document, prefetchAPIConfig) {
       event.initEvent(NOTYFY_EVENT_NAME, true, true);
     }
     document.dispatchEvent(event);
+  }
+
+  // 请求参数 data 处理
+  function resolveData(data = {}) {
+    // data 支持location，query，cookie三个动态参数
+    const location = document.location;
+    const params = (new URL(document.location)).searchParams;
+    const newData = {};
+
+    Object.keys(data).map((key) => {
+      if (typeof data[key] === 'string') {
+        newData[key] = getRealValue(data[key], location, params);
+      } else {
+        newData[key] = data[key];
+      }
+    });
+
+    return newData;
+  }
+
+  // 处理字符串参数, 获取data真实值
+  function getRealValue(value, location, params) {
+    let newValue = '';
+
+    // cookie 变量
+    if (/^cookie\./.test(value)) {
+      newValue = getCookie(value.replace('cookie.', ''));
+
+      // query 参数
+    } else if (/^query\./.test(value)) {
+      newValue = params.get(value.replace('query.', ''));
+
+      // location参数
+    } else if (/^location\./.test(value)) {
+      newValue = location[value.replace('location.', '')];
+
+      // 普通字符串
+    } else {
+      newValue = value;
+    }
+
+    return newValue;
+  }
+
+  // 获取cookie 值
+  function getCookie(key) {
+    return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(key).replace(/[-.+*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
   }
 }
 

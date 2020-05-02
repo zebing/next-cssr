@@ -1,5 +1,5 @@
 import React from 'react';
-import { config } from '../../../lib';
+import { config } from '../../../../lib';
 import '@babel/polyfill';
 
 @config({
@@ -8,7 +8,10 @@ import '@babel/polyfill';
       type: 'get',
       url: '/api/index/edit/info',
       data: {
-        componentType: 'query.componentType'
+        componentType: 'query.componentType',
+        locationTest: 'location.href',
+        cookieTest: 'cookie.name',
+        otherTest: 'other'
       }
     }
   }

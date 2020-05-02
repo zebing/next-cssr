@@ -1,6 +1,9 @@
+import resolveRequestData from './resolveRequestData';
+
 // fetch config 参数处理
 export default function fetchConfigResolve(req, res, { type, data = {}, headers, url }) {
   let urlResolve = `${req.protocol}://${req.headers.host}${url}`;
+  data = resolveRequestData(data, req);
 
   const config = {
     method: type ? type.toUpperCase() : 'GET',
@@ -17,7 +20,9 @@ export default function fetchConfigResolve(req, res, { type, data = {}, headers,
     let params = [];
     Object.keys(data).map((key) => params.push(`${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`));
     params = params.join('&');
-    urlResolve = `${urlResolve}?${params}`;
+    if (params) {
+      urlResolve = `${urlResolve}?${params}`;
+    }
 
   } else {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';

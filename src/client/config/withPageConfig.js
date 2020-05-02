@@ -11,7 +11,6 @@ export default function withPageConfig(pageConfig = {}, Component) {
   const prefetchAPI = isObject(pageConfig.prefetchAPI) ? pageConfig.prefetchAPI : {};
   const loading = getLoading(pageConfig);
 
-
   return class wrap extends React.PureComponent {
     static propTypes = {
       ssr: PropTypes.bool, // 是否为ssr渲染

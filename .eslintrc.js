@@ -14,6 +14,7 @@ module.exports = {
     process: true,
     __dirname: true,
     module: true,
+    location: true,
   },
   parserOptions: {
     sourceType: 'module',
