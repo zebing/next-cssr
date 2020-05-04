@@ -1,5 +1,6 @@
 import { isObject, isFunction } from '../../lib/utils';
 import withPageConfig from './withPageConfig';
+import '@babel/polyfill';
 
 export default function config(config) {
   return function (Component) {

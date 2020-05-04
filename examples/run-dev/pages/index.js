@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
 import { config } from '../../../lib';
-import '@babel/polyfill';
+// import '@babel/polyfill';
 
 @config({
   prefetchAPI: {
