@@ -14,7 +14,7 @@ export default function startServer(options) {
   server.use(cookieParser());
 
   // 添加static 静态目录
-  server.use('/static', express.static(path.join(options.dir, '/static')));
+  server.use('/public', express.static(path.join(options.dir, '/public')));
 
   // 开发环境下
   if (dev) {
