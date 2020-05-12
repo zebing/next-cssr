@@ -9,6 +9,7 @@ export default function prefectNotify(callback) {
     const isCompelete = window[PREFETCHAPI_RESULTS_STATUS];
     if (isCompelete) {
       const resultData = window[PREFETCHAPI_RESULTS];
+      window['__NEXT_DATA__']['props']['pageProps'] = { ...window['__NEXT_DATA__']['props']['pageProps'], ...resultData };
       callback(resultData);
       document.removeEventListener(NOTYFY_EVENT_NAME, listener);
     }

@@ -4,7 +4,7 @@ module.exports = {
   mode: process.env.NODE_ENV !== 'production' ? 'export' : 'ssr',
   devServerProxy: {
     '/api': {
-      target: 'http://example.cn',
+      target: 'http://examle.cn',
       changeOrigin: true,
       cookieDomainRewrite: 'localhost',
       secure: false,

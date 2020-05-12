@@ -1,7 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
 import { config } from '../../../lib';
-// import '@babel/polyfill';
 
 @config({
   prefetchAPI: {
@@ -14,7 +13,7 @@ import { config } from '../../../lib';
     }
   }
 })
-class Index extends React.Component {
+class Index1 extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -25,4 +24,4 @@ class Index extends React.Component {
     );
   }
 }
-export default Index;
+export default Index1;
