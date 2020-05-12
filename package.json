@@ -1,14 +1,13 @@
 {
   "name": "next-cssr",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "jsnext:main": "dist/index.esm.js",
   "scripts": {
     "build": "del dist && del lib && rollup -c",
-    "start": "cross-env BUILD_ENV=dev rollup -c -w",
-    "publish": "npm run build && npm publish"
+    "start": "cross-env BUILD_ENV=dev rollup -c -w"
   },
   "repository": {
     "type": "git",
