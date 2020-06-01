@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import requestOnServer from './requestOnServer';
+import requestOnClient from './requestOnClient';
 import { isObject } from '../../lib/utils';
 import prefectNotify from './prefectNotify';
 import { getLoading } from './loading';
@@ -40,7 +41,11 @@ export default function withPageConfig(pageConfig = {}, Component) {
         initialPropsResult = await Component.getInitialProps(ctx);
       }
 
-      return { ssr, ...prefetchAPIResult, ...initialPropsResult };
+      return {
+        ssr,
+        ...prefetchAPIResult,
+        ...initialPropsResult,
+      };
     }
 
     constructor(props) {
@@ -54,8 +59,19 @@ export default function withPageConfig(pageConfig = {}, Component) {
 
     componentDidMount() {
       prefectNotify((result) => {
-        this.prefetchRequestresult = true;
-        this.setState({ prefetchAPIResults: result });
+        const isConfigEmpty = Object.getOwnPropertyNames(prefetchAPI).length;
+        const isResultEmpty = Object.getOwnPropertyNames(result).length;
+
+        // 浅层路由变化未执行接口请求
+        if (isConfigEmpty !== isResultEmpty) {
+          requestOnClient(prefetchAPI).then((result) => {
+            this.prefetchRequestresult = true;
+            this.setState({ prefetchAPIResults: result });
+          });
+        } else {
+          this.prefetchRequestresult = true;
+          this.setState({ prefetchAPIResults: result });
+        }
       });
     }
 

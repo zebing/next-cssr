@@ -1,25 +1,11 @@
 /**
- * 降级客户端请求
+ * 客户端请求
+ * 主要解决浅层路由变化不重新执行prefechAPI接口问题
  */
 
-export default function requestOnDowngrade(prefetchAPIConfig = {}) {
-  return `(${startRequest.toString()})(window, document, ${JSON.stringify(prefetchAPIConfig)})`;
-}
-
-function startRequest(window, document, prefetchAPIConfig) {
-  // prefetchAPI 请求完成触发通知事件名称
-  const NOTYFY_EVENT_NAME = '__NEXT_PREFETCHAPI_RESULT_EVENT_NAME';
-
-  // prefetchAPI 请求结果数据名称
-  const PREFETCHAPI_RESULTS = '__NEXT_PREFETCHAPI_RESULT_DATA';
-
-  // prefetchAPI 请求完成状态
-  const PREFETCHAPI_RESULTS_STATUS = '__NEXT_PREFETCHAPI_RESULT_STATUS';
-
+export default function requestOnClient(prefetchAPIConfig = {}) {
   // prefechAPI任务列表
   let requestTasks = [];
-
-  prefetchAPIConfig = prefetchAPIConfig || {};
 
   // prefechAPI任务key列表
   const requestTasksKeyList = Object.keys(prefetchAPIConfig);
@@ -31,13 +17,10 @@ function startRequest(window, document, prefetchAPIConfig) {
   });
 
   return Promise.all(requestTasks).then(function (results) {
-    const result = results.reduce(function (tasksResult, item, key) {
+    return results.reduce(function (tasksResult, item, key) {
       tasksResult[requestTasksKeyList[key]] = item;
       return tasksResult;
     }, {});
-    window[PREFETCHAPI_RESULTS_STATUS] = true; // 任务列表完成标记状态
-    window[PREFETCHAPI_RESULTS] = result; // 任务列表结果
-    notify(); // 触发完成监听事件
   });
 
   // 发起请求
@@ -81,18 +64,6 @@ function startRequest(window, document, prefetchAPIConfig) {
       }
     };
     xhr.send(requestData);
-  }
-
-  // frefetchAPI请求完成触发
-  function notify() {
-    let event;
-    if (typeof window.Event === 'function') {
-      event = new Event(NOTYFY_EVENT_NAME);
-    } else {
-      event = document.createEvent('Event');
-      event.initEvent(NOTYFY_EVENT_NAME, true, true);
-    }
-    document.dispatchEvent(event);
   }
 
   // 请求参数 data 处理
