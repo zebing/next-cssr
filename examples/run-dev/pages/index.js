@@ -4,12 +4,8 @@ import { config } from '../../../lib';
 
 @config({
   prefetchAPI: {
-    getList: {
-      type: 'get',
-      url: '/api/index/edit/info',
-      data: {
-        componentType: 'query.componentType'
-      }
+    userInfo: {
+      url: '/api/user/userInfo',
     }
   }
 })
